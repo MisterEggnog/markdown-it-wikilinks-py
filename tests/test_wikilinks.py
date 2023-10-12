@@ -1,4 +1,6 @@
 import pytest
+from markdown_it import MarkdownIt
+from markdown_it_wikilinks import wikilinks
 
 examples = [
     ("[[Wiki Link]]", '<p><a href="./Wiki_Link.html">Wiki Link</a></p>'),
@@ -61,4 +63,6 @@ examples = [
 
 @pytest.mark.parametrize("input,expected", examples)
 def test_wikilink_examples(input, expected):
-    pass
+    markdown = MarkdownIt()
+    markdown.add_render_rule("wikilinks", wikilinks)
+    assert expected == markdown.render(input)
