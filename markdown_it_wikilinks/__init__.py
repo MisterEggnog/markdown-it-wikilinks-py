@@ -1,4 +1,5 @@
 import re
+from urllib.parse import quote
 
 _wikilink_regex = r"\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]"
 
@@ -14,9 +15,12 @@ def wikilinks(self, tokens, idx, options, env):
         htmlAttrsString = ""
         if len(re_match) == 3:
             label = match[3]
-            pagePath = match[1]
+            page_path = match[1]
         else:
             label = match[1]
-            pagePath = generate_page_path_from_label(match[1])
+            page_path = generate_page_path_from_label(match[1])
+
+        page_url = quote(page_path)
+
     # Does nothing?
     return self.renderToken(tokens, idx, options, env)
