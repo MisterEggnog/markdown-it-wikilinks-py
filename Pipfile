@@ -8,6 +8,7 @@ markdown-it-py = "*"
 
 [dev-packages]
 pytest = "*"
+black = "*"
 
 [requires]
 python_version = "3.8"
