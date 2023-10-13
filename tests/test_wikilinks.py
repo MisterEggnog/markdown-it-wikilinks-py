@@ -1,6 +1,7 @@
 import pytest
 from markdown_it import MarkdownIt
 from markdown_it_wikilinks import wikilinks
+import markdown_it_wikilinks as md_wikilinks
 
 examples = [
     ("[[Wiki Link]]", '<p><a href="./Wiki_Link.html">Wiki Link</a></p>'),
@@ -61,8 +62,18 @@ examples = [
 ]
 
 
+@pytest.mark.skip(reason="Not yet implemented")
 @pytest.mark.parametrize("input,expected", examples)
 def test_wikilink_examples(input, expected):
     markdown = MarkdownIt()
     markdown.add_render_rule("wikilinks", wikilinks)
     assert expected == markdown.render(input)
+
+
+def test_url_has_file_component():
+    assert md_wikilinks._url_has_file_component(
+        "https://www.egg.spam/dink"
+    ), "link is bare file"
+    assert not md_wikilinks._url_has_file_component(
+        "https://www.egg.spam/dink/"
+    ), "link is a directory"

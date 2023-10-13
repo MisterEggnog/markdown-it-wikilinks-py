@@ -1,7 +1,12 @@
 import re
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 _wikilink_regex = r"\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]"
+
+
+def _url_has_file_component(url):
+    urlcomp = urlparse(url)
+    return not urlcomp.path.endswith("/")
 
 
 def wikilinks(self, tokens, idx, options, env):
