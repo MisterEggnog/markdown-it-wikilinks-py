@@ -1,5 +1,5 @@
 import re
-from urllib.parse import quote, urlparse
+from urllib.parse import quote, urlparse, urlunparse
 
 _wikilink_regex = r"\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]"
 
@@ -24,6 +24,12 @@ def wikilinks(self, tokens, idx, options, env):
         else:
             label = match[1]
             page_path = generate_page_path_from_label(match[1])
+
+        # Replace spaces if ends with file
+        if _url_has_file_component(page_url):
+            url_comp = urlparse(page_url)
+            url_comp.path = re.sub(r"\s+", url_comp.path)
+            page_url = urlunparse(url_comp)
 
         page_url = quote(page_path)
 
