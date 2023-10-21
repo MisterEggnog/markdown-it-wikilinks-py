@@ -9,6 +9,12 @@ def _url_has_file_component(url):
     return not urlcomp.path.endswith("/")
 
 
+def post_process_page_path(page_path):
+    page_path = page_path.strip()
+    page_path = re.sub(r"\s+", "_", page_path)
+    return page_path
+
+
 def wikilinks(self, tokens, idx, options, env):
     def generate_page_path_from_label(s):
         return s
@@ -28,7 +34,7 @@ def wikilinks(self, tokens, idx, options, env):
         # Replace spaces if ends with file
         if _url_has_file_component(page_url):
             url_comp = urlparse(page_url)
-            url_comp.path = re.sub(r"\s+", url_comp.path)
+            url_comp.path = post_process_page_path(url_comp.path)
             page_url = urlunparse(url_comp)
 
         page_url = quote(page_path)

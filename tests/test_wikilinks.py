@@ -77,3 +77,10 @@ def test_url_has_file_component():
     assert not md_wikilinks._url_has_file_component(
         "https://www.egg.spam/dink/"
     ), "link is a directory"
+
+
+def test_post_process_path():
+    path = "/lol       "
+    assert md_wikilinks.post_process_page_path(path) == "/lol"
+    path = "spam and eggs"
+    assert md_wikilinks.post_process_page_path(path) == "spam_and_eggs"
