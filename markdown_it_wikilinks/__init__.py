@@ -1,7 +1,7 @@
 import re
 from urllib.parse import quote, urlparse, urlunparse
 
-_wikilink_regex = r"\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]"
+_wikilink_regex = re.compile(r"\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]")
 
 
 def _url_has_file_component(url):
