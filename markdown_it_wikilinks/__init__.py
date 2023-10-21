@@ -39,5 +39,10 @@ def wikilinks(self, tokens, idx, options, env):
 
         page_url = quote(page_path)
 
+        escapedHref = str(page_url)
+        htmlAttrsString = 'href="{escapedHref}"'
+
+        return "<a {htmlAttrsString}>{label}</a>"
+
     # Does nothing?
     return self.renderToken(tokens, idx, options, env)

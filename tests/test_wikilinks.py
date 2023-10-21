@@ -62,7 +62,7 @@ examples = [
 ]
 
 
-@pytest.mark.skip(reason="Not yet implemented")
+# @pytest.mark.skip(reason="Not yet implemented")
 @pytest.mark.parametrize("input,expected", examples)
 def test_wikilink_examples(input, expected):
     markdown = MarkdownIt()
