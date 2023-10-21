@@ -62,12 +62,18 @@ examples = [
 ]
 
 
-# @pytest.mark.skip(reason="Not yet implemented")
+@pytest.mark.skip(reason="Not yet implemented")
 @pytest.mark.parametrize("input,expected", examples)
 def test_wikilink_examples(input, expected):
     markdown = MarkdownIt()
-    markdown.add_render_rule("wikilinks", wikilinks)
+    markdown.add_render_rule("text", wikilinks)
     assert expected == markdown.render(input)
+
+
+def test_render_rule_runs():
+    markdown = MarkdownIt()
+    markdown.add_render_rule("text", wikilinks)
+    markdown.render("[[this does not matter]]")
 
 
 def test_url_has_file_component():

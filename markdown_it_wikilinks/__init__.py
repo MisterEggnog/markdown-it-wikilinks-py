@@ -16,25 +16,29 @@ def post_process_page_path(page_path):
 
 
 def wikilinks(self, tokens, idx, options, env):
+    token = tokens[idx]
+
     def generate_page_path_from_label(s):
         return s
 
-    if re_match := _wikilink_regex.match(tokens.attr["src"]):
+    if re_match := _wikilink_regex.match(token.content):
         label = None
         page_path = None
         htmlAttrs = []
         htmlAttrsString = ""
-        if len(re_match) == 3:
-            label = match[3]
-            page_path = match[1]
+        if len(re_match.groups()) == 3:
+            label = re_match[3]
+            page_path = re_match[1]
         else:
-            label = match[1]
-            page_path = generate_page_path_from_label(match[1])
+            label = re_match[1]
+            page_path = generate_page_path_from_label(re_match[1])
+
+        page_url = page_path
 
         # Replace spaces if ends with file
         if _url_has_file_component(page_url):
             url_comp = urlparse(page_url)
-            url_comp.path = post_process_page_path(url_comp.path)
+            url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
             page_url = urlunparse(url_comp)
 
         page_url = quote(page_path)
