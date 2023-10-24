@@ -70,10 +70,12 @@ def test_wikilink_examples(input, expected):
     assert expected == markdown.render(input)
 
 
-def test_render_rule_runs():
+def test_render_rule_single_arg():
     markdown = MarkdownIt()
     markdown.add_render_rule("text", wikilinks)
-    markdown.render("[[this does not matter]]")
+    assert '<a src="text_with_spaces">text with spaces</a>' in markdown.render(
+        "[[text with spaces]]"
+    )
 
 
 def test_url_has_file_component():
