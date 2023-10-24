@@ -62,26 +62,27 @@ examples = [
 ]
 
 
+@pytest.fixture
+def md_engine():
+    markdown = MarkdownIt()
+    markdown.add_render_rule("text", wikilinks)
+    return markdown
+
+
 @pytest.mark.skip(reason="Not yet implemented")
 @pytest.mark.parametrize("input,expected", examples)
-def test_wikilink_examples(input, expected):
-    markdown = MarkdownIt()
-    markdown.add_render_rule("text", wikilinks)
-    assert expected == markdown.render(input)
+def test_wikilink_examples(input, expected, md_engine):
+    assert expected == md_engine.render(input)
 
 
-def test_render_rule_single_arg():
-    markdown = MarkdownIt()
-    markdown.add_render_rule("text", wikilinks)
-    assert '<a href="text_with_spaces">text with spaces</a>' in markdown.render(
+def test_render_rule_single_arg(md_engine):
+    assert '<a href="text_with_spaces">text with spaces</a>' in md_engine.render(
         "[[text with spaces]]"
     )
 
 
-def test_render_rule_double_arg():
-    markdown = MarkdownIt()
-    markdown.add_render_rule("text", wikilinks)
-    assert '<a href="text_with_spaces">Ouch</a>' in markdown.render(
+def test_render_rule_double_arg(md_engine):
+    assert '<a href="text_with_spaces">Ouch</a>' in md_engine.render(
         "[[text_with_spaces|Ouch]]"
     )
 
