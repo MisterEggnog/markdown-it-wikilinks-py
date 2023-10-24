@@ -89,6 +89,10 @@ def test_render_rule_double_arg(md_engine):
 
 def test_wiki_fragment(md_engine):
     assert '<a href="liver#onions">Oof</a>' in md_engine.render("[[liver#onions|Oof]]")
+    assert (
+        '<a href="wiki_fragment#fragment_dink">wiki fragment</a>'
+        in md_engine.render("[[wiki fragment#fragment dink]]")
+    )
 
 
 def test_url_has_file_component():
