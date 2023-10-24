@@ -73,7 +73,7 @@ def test_wikilink_examples(input, expected):
 def test_render_rule_single_arg():
     markdown = MarkdownIt()
     markdown.add_render_rule("text", wikilinks)
-    assert '<a src="text_with_spaces">text with spaces</a>' in markdown.render(
+    assert '<a href="text_with_spaces">text with spaces</a>' in markdown.render(
         "[[text with spaces]]"
     )
 
