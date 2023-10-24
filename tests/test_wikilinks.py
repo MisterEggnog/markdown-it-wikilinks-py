@@ -95,6 +95,12 @@ def test_wiki_fragment(md_engine):
     )
 
 
+def test_sanitize_fragment(md_engine):
+    assert '<a href="beef#todd_howard">E</a>' in md_engine.render(
+        "[[beef#todd howard|E]]"
+    )
+
+
 def test_url_has_file_component():
     assert md_wikilinks._url_has_file_component(
         "https://www.egg.spam/dink"

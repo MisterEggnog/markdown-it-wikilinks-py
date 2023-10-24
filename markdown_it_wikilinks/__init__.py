@@ -15,6 +15,10 @@ def post_process_page_path(page_path):
     return page_path
 
 
+def post_process_fragment(fragment):
+    return post_process_page_path(fragment)
+
+
 def wikilinks(self, tokens, idx, options, env):
     token = tokens[idx]
 
@@ -34,14 +38,20 @@ def wikilinks(self, tokens, idx, options, env):
             page_path = generate_page_path_from_label(re_match[1])
 
         page_url = page_path
+        url_comp = urlparse(page_url)
 
         # Replace spaces if ends with file
-        url_comp = urlparse(page_url)
         url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
         url_comp = url_comp._replace(path=quote(url_comp.path))
+
+        # Sanitize fragment if it exists
+        if url_comp.fragment is not None:
+            url_comp = url_comp._replace(
+                fragment=post_process_fragment(url_comp.fragment)
+            )
+            url_comp = url_comp._replace(fragment=quote(url_comp.fragment))
+
         page_url = urlunparse(url_comp)
-
-
         escapedHref = page_url
         htmlAttrsString = f'href="{escapedHref}"'
 
