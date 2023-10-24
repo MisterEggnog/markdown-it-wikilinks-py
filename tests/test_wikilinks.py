@@ -76,27 +76,29 @@ def test_wikilink_examples(input, expected, md_engine):
 
 
 def test_render_rule_single_arg(md_engine):
-    assert '<a href="text_with_spaces">text with spaces</a>' in md_engine.render(
+    assert '<a href="./text_with_spaces">text with spaces</a>' in md_engine.render(
         "[[text with spaces]]"
     )
 
 
 def test_render_rule_double_arg(md_engine):
-    assert '<a href="text_with_spaces">Ouch</a>' in md_engine.render(
+    assert '<a href="./text_with_spaces">Ouch</a>' in md_engine.render(
         "[[text_with_spaces|Ouch]]"
     )
 
 
 def test_wiki_fragment(md_engine):
-    assert '<a href="liver#onions">Oof</a>' in md_engine.render("[[liver#onions|Oof]]")
+    assert '<a href="./liver#onions">Oof</a>' in md_engine.render(
+        "[[liver#onions|Oof]]"
+    )
     assert (
-        '<a href="wiki_fragment#fragment_dink">wiki fragment</a>'
+        '<a href="./wiki_fragment#fragment_dink">wiki fragment</a>'
         in md_engine.render("[[wiki fragment#fragment dink]]")
     )
 
 
 def test_sanitize_fragment(md_engine):
-    assert '<a href="beef#todd_howard">E</a>' in md_engine.render(
+    assert '<a href="./beef#todd_howard">E</a>' in md_engine.render(
         "[[beef#todd howard|E]]"
     )
 
