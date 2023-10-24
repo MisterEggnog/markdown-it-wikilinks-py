@@ -38,9 +38,9 @@ def wikilinks(self, tokens, idx, options, env):
         # Replace spaces if ends with file
         url_comp = urlparse(page_url)
         url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
+        url_comp = url_comp._replace(path=quote(url_comp.path))
         page_url = urlunparse(url_comp)
 
-        page_url = quote(page_url)
 
         escapedHref = page_url
         htmlAttrsString = f'href="{escapedHref}"'
