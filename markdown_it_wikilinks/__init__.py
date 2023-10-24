@@ -36,14 +36,13 @@ def wikilinks(self, tokens, idx, options, env):
         page_url = page_path
 
         # Replace spaces if ends with file
-        if _url_has_file_component(page_url):
-            url_comp = urlparse(page_url)
-            url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
-            page_url = urlunparse(url_comp)
+        url_comp = urlparse(page_url)
+        url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
+        page_url = urlunparse(url_comp)
 
-        page_url = quote(page_path)
+        page_url = quote(page_url)
 
-        escapedHref = str(page_url)
+        escapedHref = page_url
         htmlAttrsString = f'href="{escapedHref}"'
 
         return f"<a {htmlAttrsString}>{label}</a>"
