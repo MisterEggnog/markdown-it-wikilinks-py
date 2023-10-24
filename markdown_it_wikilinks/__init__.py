@@ -26,7 +26,7 @@ def wikilinks(self, tokens, idx, options, env):
         page_path = None
         htmlAttrs = []
         htmlAttrsString = ""
-        if len(re_match.groups()) == 3:
+        if re_match.group(2) is not None:
             label = re_match[3]
             page_path = re_match[1]
         else:
