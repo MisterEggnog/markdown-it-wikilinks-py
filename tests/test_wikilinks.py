@@ -78,6 +78,14 @@ def test_render_rule_single_arg():
     )
 
 
+def test_render_rule_double_arg():
+    markdown = MarkdownIt()
+    markdown.add_render_rule("text", wikilinks)
+    assert '<a href="text_with_spaces">Ouch</a>' in markdown.render(
+        "[[text_with_spaces|Ouch]]"
+    )
+
+
 def test_url_has_file_component():
     assert md_wikilinks._url_has_file_component(
         "https://www.egg.spam/dink"
