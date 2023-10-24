@@ -54,6 +54,7 @@ def wikilinks(self, tokens, idx, options, env):
         page_url = urlunparse(url_comp)
         escapedHref = page_url
         htmlAttrsString = f'href="{escapedHref}"'
+        label = label.split("#")[0]
 
         return f"<a {htmlAttrsString}>{label}</a>"
 
