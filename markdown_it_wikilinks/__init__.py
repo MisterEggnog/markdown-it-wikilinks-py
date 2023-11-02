@@ -44,6 +44,8 @@ def wikilinks(self, tokens, idx, options, env):
         url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
         if not url_comp.path.endswith("/"):
             url_comp = url_comp._replace(path=url_comp.path + ".html")
+        if not url_comp.path.startswith("/"):
+            url_comp = url_comp._replace(path="./" + url_comp.path)
         url_comp = url_comp._replace(path=quote(url_comp.path))
 
         # Sanitize fragment if it exists
@@ -55,7 +57,7 @@ def wikilinks(self, tokens, idx, options, env):
 
         page_url = urlunparse(url_comp)
         escapedHref = page_url
-        htmlAttrsString = f'href="./{escapedHref}"'
+        htmlAttrsString = f'href="{escapedHref}"'
         label = label.split("#")[0]
 
         return f"<a {htmlAttrsString}>{label}</a>"

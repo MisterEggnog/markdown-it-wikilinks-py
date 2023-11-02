@@ -75,6 +75,10 @@ def test_wikilink_examples(input, expected, md_engine):
     assert expected in md_engine.render(input)
 
 
+def test_no_dot_if_starts_with_slash(md_engine):
+    assert '<a href="/egg.html">/egg</a>' in md_engine.render("[[/egg]]")
+
+
 def test_paths_end_with_html(md_engine):
     assert '<a href="./text.html">text</a>' in md_engine.render("[[text]]")
     assert '<a href="./text.html#frag">text</a>' in md_engine.render("[[text#frag]]")
