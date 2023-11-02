@@ -42,6 +42,8 @@ def wikilinks(self, tokens, idx, options, env):
 
         # Replace spaces if ends with file
         url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
+        if not url_comp.path.endswith("/"):
+            url_comp = url_comp._replace(path=url_comp.path + ".html")
         url_comp = url_comp._replace(path=quote(url_comp.path))
 
         # Sanitize fragment if it exists
