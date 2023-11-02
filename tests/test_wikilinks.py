@@ -75,6 +75,11 @@ def test_wikilink_examples(input, expected, md_engine):
     assert expected == md_engine.render(input)
 
 
+def test_paths_end_with_html(md_engine):
+    assert '<a href="./text.html">text</a>' in md_engine.render("[[text]]")
+    assert '<a href="./text.html#frag">text</a>' in md_engine.render("[[text#frag]]")
+
+
 def test_render_rule_single_arg(md_engine):
     assert '<a href="./text_with_spaces">text with spaces</a>' in md_engine.render(
         "[[text with spaces]]"
