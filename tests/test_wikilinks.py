@@ -75,6 +75,10 @@ def test_wikilink_examples(input, expected, md_engine):
     assert expected in md_engine.render(input)
 
 
+def test_includes_left_and_right(md_engine):
+    assert 'left <a href="./egg.html">egg</a>' in md_engine.render("left [[egg]] right")
+
+
 def test_no_dot_if_starts_with_slash(md_engine):
     assert '<a href="/egg.html">/egg</a>' in md_engine.render("[[/egg]]")
 
