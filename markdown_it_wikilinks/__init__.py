@@ -25,7 +25,10 @@ def wikilinks(self, tokens, idx, options, env):
     def generate_page_path_from_label(s):
         return s
 
-    if re_match := _wikilink_regex.match(token.content):
+    if re_match := _wikilink_regex.search(token.content):
+        left_patch = token.content[: re_match.span()[0]]
+        right_patch = token.content[re_match.span()[1] :]
+
         label = None
         page_path = None
         htmlAttrs = []
@@ -60,7 +63,7 @@ def wikilinks(self, tokens, idx, options, env):
         htmlAttrsString = f'href="{escapedHref}"'
         label = label.split("#")[0]
 
-        return f"<a {htmlAttrsString}>{label}</a>"
+        return f"{left_patch}<a {htmlAttrsString}>{label}</a>{right_patch}"
 
     # Does nothing?
     return self.renderToken(tokens, idx, options, env)
