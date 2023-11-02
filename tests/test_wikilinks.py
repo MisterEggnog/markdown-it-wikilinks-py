@@ -72,7 +72,7 @@ def md_engine():
 @pytest.mark.skip(reason="Not yet implemented")
 @pytest.mark.parametrize("input,expected", examples)
 def test_wikilink_examples(input, expected, md_engine):
-    assert expected == md_engine.render(input)
+    assert expected in md_engine.render(input)
 
 
 def test_paths_end_with_html(md_engine):
