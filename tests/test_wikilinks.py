@@ -75,6 +75,10 @@ def test_wikilink_examples(input, expected, md_engine):
     assert expected in md_engine.render(input)
 
 
+def test_no_brackets_pass_through(md_engine):
+    assert "spam & eggs" in md_engine.render("spam & eggs")
+
+
 def test_includes_left_and_right(md_engine):
     assert 'left <a href="./egg.html">egg</a>' in md_engine.render("left [[egg]] right")
 
