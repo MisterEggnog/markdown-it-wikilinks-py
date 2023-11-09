@@ -65,5 +65,6 @@ def wikilinks(self, tokens, idx, options, env):
 
         return f"{left_patch}<a {htmlAttrsString}>{label}</a>{right_patch}"
 
-    # Does nothing?
-    return self.renderToken(tokens, idx, options, env)
+    # This doesn't feel right
+    return token.content
+    # return self.renderToken(tokens, idx, options, env)
