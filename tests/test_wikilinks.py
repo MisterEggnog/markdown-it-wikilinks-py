@@ -105,7 +105,7 @@ def test_render_rule_double_arg(md_engine):
 
 
 def test_only_anchor_does_not_add_extra_stuff(md_engine):
-    assert '<a href="#left">ouch</a>' in md_engine.render("[[#left|Ouch]]")
+    assert '<a href="#left">ouch</a>' in md_engine.render("[[#left|ouch]]")
 
 
 def test_wiki_fragment(md_engine):
