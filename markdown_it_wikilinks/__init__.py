@@ -64,7 +64,10 @@ def _process_wikilink_regex(token, re_match):
     page_url = urlunparse(url_comp)
     escapedHref = page_url
     htmlAttrsString = f'href="{escapedHref}"'
-    label = label.split("#")[0]
+    if label[0] == "#":
+        label = label[1:]
+    else:
+        label = label.split("#")[0]
 
     return f"{left_patch}<a {htmlAttrsString}>{label}</a>{right_patch}"
 
