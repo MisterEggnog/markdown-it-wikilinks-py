@@ -23,6 +23,16 @@ def generate_page_path_from_label(s):
     return s
 
 
+def process_page_path(path):
+    path = post_process_page_path(path)
+    if not path.endswith("/"):
+        path = path + ".html"
+    if not path.startswith("/"):
+        path = "./" + path
+    path = quote(path)
+    return path
+
+
 def _process_wikilink_regex(token, re_match):
     left_patch = token.content[: re_match.span()[0]]
     right_patch = token.content[re_match.span()[1] :]
@@ -41,13 +51,7 @@ def _process_wikilink_regex(token, re_match):
     page_url = page_path
     url_comp = urlparse(page_url)
 
-    # Replace spaces if ends with file
-    url_comp = url_comp._replace(path=post_process_page_path(url_comp.path))
-    if not url_comp.path.endswith("/"):
-        url_comp = url_comp._replace(path=url_comp.path + ".html")
-    if not url_comp.path.startswith("/"):
-        url_comp = url_comp._replace(path="./" + url_comp.path)
-    url_comp = url_comp._replace(path=quote(url_comp.path))
+    url_comp = url_comp._replace(path=process_page_path(url_comp.path))
 
     # Sanitize fragment if it exists
     if url_comp.fragment is not None:
