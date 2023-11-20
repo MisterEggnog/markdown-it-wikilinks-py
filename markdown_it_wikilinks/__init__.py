@@ -24,6 +24,9 @@ def generate_page_path_from_label(s):
 
 
 def process_page_path(path):
+    if not path:
+        return path
+
     path = post_process_page_path(path)
     if not path.endswith("/"):
         path = path + ".html"
