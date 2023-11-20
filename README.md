@@ -1,1 +1,1 @@
-Partial port of jsepia/markdown-it-wikilinks
+Loosely ported from jsepia/markdown-it-wikilinks
