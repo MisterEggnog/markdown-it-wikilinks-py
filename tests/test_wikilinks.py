@@ -108,6 +108,10 @@ def test_only_anchor_does_not_add_extra_stuff(md_engine):
     assert '<a href="#left">ouch</a>' in md_engine.render("[[#left|ouch]]")
 
 
+def test_anchor_only_used_as_title(md_engine):
+    assert '<a href="#Anchor">Anchor</a>' in md_engine.render("[[#Anchor]]")
+
+
 def test_wiki_fragment(md_engine):
     assert '<a href="./liver.html#onions">Oof</a>' in md_engine.render(
         "[[liver#onions|Oof]]"
