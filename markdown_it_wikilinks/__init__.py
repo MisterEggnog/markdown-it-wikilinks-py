@@ -1,3 +1,7 @@
+"""Plugin to add wiki style links to markdown-it."""
+
+__version__ = "0.1.0"
+
 import re
 from urllib.parse import quote, urlparse, urlunparse
 
