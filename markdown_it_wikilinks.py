@@ -76,7 +76,7 @@ def _process_wikilink_regex(token, re_match):
     return f"{left_patch}<a {htmlAttrsString}>{label}</a>{right_patch}"
 
 
-def wikilinks(self, tokens, idx, options, env):
+def wikilinks_rule(self, tokens, idx, options, env):
     token = tokens[idx]
 
     if re_match := _wikilink_regex.search(token.content):
@@ -85,3 +85,7 @@ def wikilinks(self, tokens, idx, options, env):
     # This doesn't feel right
     return token.content
     # return self.renderToken(tokens, idx, options, env)
+
+
+def wikilinks(md):
+    md.add_render_rule("text", wikilinks_rule)

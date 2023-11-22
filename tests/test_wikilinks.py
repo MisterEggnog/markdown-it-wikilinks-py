@@ -65,7 +65,7 @@ examples = [
 @pytest.fixture
 def md_engine():
     markdown = MarkdownIt()
-    markdown.add_render_rule("text", wikilinks)
+    markdown.use(wikilinks)
     return markdown
 
 
